@@ -158,58 +158,29 @@ layout: center
 
 # 🎯 What we wanted
 
-<div class="grid grid-cols-4 gap-3 mt-8">
-  <div class="text-center p-4 bg-blue-500/10 rounded-lg">
-    <div class="text-3xl mb-2">📄</div>
-    <div class="font-bold">Backend</div>
-    <div class="text-sm opacity-70">Updated the API</div>
-  </div>
-  <div class="text-center p-4 bg-green-500/10 rounded-lg">
-    <div class="text-3xl mb-2">📋</div>
-    <div class="font-bold">Swagger Spec</div>
-    <div class="text-sm opacity-70">Updated automatically</div>
-  </div>
-  <div class="text-center p-4 bg-purple-500/10 rounded-lg">
-    <div class="text-3xl mb-2">⚡</div>
-    <div class="font-bold">Generate</div>
-    <div class="text-sm opacity-70">Types + client generated</div>
-  </div>
-  <div class="text-center p-4 bg-red-500/10 rounded-lg">
-    <div class="text-3xl mb-2">🛡️</div>
-    <div class="font-bold">Type Check</div>
-    <div class="text-sm opacity-70">Inconsistency? Error!</div>
-  </div>
-</div>
+<div class="w-full flex justify-center mt-14" style="transform: scale(2.8); transform-origin: top center;">
 
-<v-click>
+```mermaid
+%%{init: {'theme':'base','themeVariables':{'fontSize':'22px'}}}%%
+flowchart LR
+  A[📄 Backend] --> B[📋 Swagger Spec]
+  B --> C[⚡ Generate]
+  C --> D[🛡️ Type Check]
 
-<div class="text-center mt-6">
+  classDef s1 fill:#3b82f620,stroke:#3b82f6,stroke-width:4px,color:#dbeafe,font-size:30px;
+  classDef s2 fill:#22c55e20,stroke:#22c55e,stroke-width:4px,color:#dcfce7,font-size:30px;
+  classDef s3 fill:#a855f720,stroke:#a855f7,stroke-width:4px,color:#f3e8ff,font-size:30px;
+  classDef s4 fill:#ef444420,stroke:#ef4444,stroke-width:5px,stroke-dasharray: 8 6,color:#fee2e2,font-size:30px;
 
-```bash
-npm run api:generate  # regenerate types + client
-npm run type-check    # tsc --noEmit → catch breaking changes 🛡️
+  class A s1
+  class B s2
+  class C s3
+  class D s4
+
+  linkStyle 0,1,2 stroke:#9ca3af,stroke-width:3px;
 ```
 
 </div>
-
-</v-click>
-
-<v-click>
-
-<div class="mt-4 p-3 bg-green-500/10 border border-green-500/30 rounded text-center">
-  Backend renamed <code>firstName</code> → <code>first_name</code>?<br>
-  Generated types update → <strong>TypeScript shows errors everywhere it's used</strong> → fix before deploy, not in production.
-</div>
-
-</v-click>
-
-<v-click>
-
-<div class="mt-2 p-3 bg-blue-500/10 border border-blue-500/30 rounded text-center">
-  🚀 <strong>CI pipeline runs <code>tsc --noEmit</code></strong> on every PR — broken types <strong>never get merged</strong>.
-</div>
-
-</v-click>
 
 <!--
 We wanted a simple flow: backend updates the API, the spec updates,
