@@ -118,56 +118,38 @@ No compile-time safety, no contract between frontend and backend.
 layout: default
 ---
 
-# 🤖 "Maybe AI can generate the types?"
+# 🤖 "Maybe AI can generate code?"
 
 We tried that too — gave AI (ChatGPT, Copilot, Cursor) a OpenAPI spec:
-
-<div class="grid grid-cols-2 gap-4 mt-2">
-
-<div>
-
-```json
-// OpenAPI spec
-{ "UserResource": {
-    "properties": {
-      "id": { "type": "integer" },
-      "email": { "type": "string" },
-      "avatar": { "type": "string",
-                   "nullable": true }
-    }
-}}
-```
-
-</div>
-
-<div>
-
-```typescript
-// AI generated 🤖
-interface UserResource {
-  id: number;
-  email: string;
-  avatar: string; // ❌ forgot nullable!
-  name?: string;  // ❌ hallucination!
-}
-```
-
-</div>
-</div>
-
-<v-clicks>
 
 - ❌ **Non-deterministic** — every run produces a different result
 - ❌ **Hallucinations** — invents fields, forgets `nullable`
 - ❌ **Doesn't scale** — 100+ endpoints through a prompt?
 - ❌ **Can't integrate into CI/CD** — unreliable for automation
 
-</v-clicks>
 
 <!--
 We also tried the AI approach — ChatGPT, GitHub Copilot, Cursor.
 We gave them a swagger spec and asked to generate types.
 But it's non-deterministic, hallucinates, and doesn't scale.
+-->
+
+---
+layout: center
+class: text-center
+---
+
+# 💡 OpenAPI → TypeScript is a formal transformation, not a creative task.
+
+<div class="mt-8 text-xl opacity-80">
+  Don't use AI where the problem can be solved <strong>algorithmically</strong>.
+</div>
+
+<!--
+This is the key insight. Converting an OpenAPI spec to TypeScript types
+is a purely algorithmic task. It requires 100% accuracy, not "approximately correct".
+AI is great for creative tasks, but for formal transformations
+you need a deterministic tool — one that produces the same correct output every time.
 -->
 
 ---
@@ -237,24 +219,6 @@ If the backend renamed a field, the generated types change,
 and TypeScript immediately shows errors in every component that used the old name.
 We catch inconsistencies at compile time, not from angry users in production.
 And in CI — tsc runs on every pull request, so broken types simply can't get into main.
--->
-
----
-layout: center
-class: text-center
----
-
-# 💡 OpenAPI → TypeScript is a formal transformation, not a creative task.
-
-<div class="mt-8 text-xl opacity-80">
-  Don't use AI where the problem can be solved <strong>algorithmically</strong>.
-</div>
-
-<!--
-This is the key insight. Converting an OpenAPI spec to TypeScript types
-is a purely algorithmic task. It requires 100% accuracy, not "approximately correct".
-AI is great for creative tasks, but for formal transformations
-you need a deterministic tool — one that produces the same correct output every time.
 -->
 
 ---
