@@ -200,11 +200,11 @@ layout: default
 
 | Library | What it generates | Key traits |
 |---|---|---|
-| **[swagger-typescript-api](https://github.com/acacode/swagger-typescript-api)** | TS client (Fetch/Axios) | Simple, single file, TS-only |
-| **[openapi-generator-cli](https://github.com/OpenAPITools/openapi-generator)** | Clients for 50+ languages | Enterprise, **requires Java** ☕ |
-| **[openapi-typescript](https://github.com/drwpow/openapi-typescript)** | Types only (no runtime) | Minimal footprint |
-| **[hey-api/openapi-ts](https://github.com/hey-api/openapi-ts)** | TS client + SDK | Modern, plugin system, Fetch/Axios |
-| **[orval](https://github.com/orval-labs/orval)** | Types + hooks + mocks | React Query, Vue Query, Zod, MSW |
+| **[swagger-typescript-api](https://github.com/acacode/swagger-typescript-api)** | TS client (Fetch / Axios) | Single-file output, simple setup |
+| **[openapi-generator-cli](https://github.com/OpenAPITools/openapi-generator)** | Clients for 50+ languages | Multi-language, enterprise, **needs Java** ☕ |
+| **[openapi-typescript](https://github.com/openapi-ts/openapi-typescript)** | Types only (zero runtime) | Minimal footprint, pairs with `openapi-fetch` |
+| **[hey-api/openapi-ts](https://github.com/hey-api/openapi-ts)** | SDK + types + schemas | Plugin system, 7 HTTP clients, extensible |
+| **[orval](https://github.com/orval-labs/orval)** | Types + client + hooks + mocks | Fetch, Axios, React/Vue Query, MSW, Zod |
 
 <v-click>
 
@@ -223,7 +223,7 @@ layout: default
   </div>
   <div class="p-2 bg-gray-500/10 rounded flex flex-col items-center gap-2">
     <img src="https://openapi-ts.dev/assets/openapi-ts.svg" alt="openapi-typescript" class="h-8 w-auto" />
-    <a href="https://github.com/drwpow/openapi-typescript" target="_blank" class="font-bold text-gray-300 hover:text-blue-400">openapi-typescript</a>
+    <a href="https://github.com/openapi-ts/openapi-typescript" target="_blank" class="font-bold text-gray-300 hover:text-blue-400">openapi-typescript</a>
     <div class="opacity-60">⭐ 7.9k</div>
     <div class="opacity-50 text-[10px]">📦 2.4M/week</div>
   </div>
