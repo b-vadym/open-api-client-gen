@@ -203,40 +203,40 @@ layout: default
 | **[swagger-typescript-api](https://github.com/acacode/swagger-typescript-api)** | TS client (Fetch / Axios) | Single-file output, simple setup |
 | **[openapi-generator-cli](https://github.com/OpenAPITools/openapi-generator)** | Clients for 50+ languages | Multi-language, enterprise, **needs Java** ☕ |
 | **[openapi-typescript](https://github.com/openapi-ts/openapi-typescript)** | Types only (zero runtime) | Minimal footprint, pairs with `openapi-fetch` |
-| **[hey-api/openapi-ts](https://github.com/hey-api/openapi-ts)** | SDK + types + schemas | Plugin system, 7 HTTP clients, extensible |
+| **[hey-api/openapi-ts](https://github.com/hey-api/openapi-ts)** | SDK + types + Zod | Plugin arch, 7 clients, TanStack Query |
 | **[orval](https://github.com/orval-labs/orval)** | Types + client + hooks + mocks | Fetch, Axios, React/Vue Query, MSW, Zod |
 
 <v-click>
 
-<div class="mt-6 grid grid-cols-5 gap-2 text-center text-xs">
-  <div class="p-2 bg-gray-500/10 rounded flex flex-col items-center gap-2">
-    <img src="https://avatars.githubusercontent.com/u/39670415?s=200&v=4" alt="swagger-typescript-api" class="h-8 w-auto" />
-    <a href="https://github.com/acacode/swagger-typescript-api" target="_blank" class="font-bold text-gray-300 hover:text-blue-400">swagger-ts-api</a>
-    <div class="opacity-60">⭐ 4.1k</div>
+<div class="mt-2 grid grid-cols-5 gap-1 text-center text-xs">
+  <div class="p-1.5 bg-gray-500/10 rounded flex flex-col items-center gap-1">
+    <img src="https://avatars.githubusercontent.com/u/39670415?s=200&v=4" alt="swagger-typescript-api" class="h-6 w-auto" />
+    <a href="https://github.com/acacode/swagger-typescript-api" target="_blank" class="font-bold text-gray-300 hover:text-blue-400 text-[11px] leading-tight">swagger-ts-api</a>
+    <div class="opacity-60 text-[10px]">⭐ 4.1k</div>
     <div class="opacity-50 text-[10px]">📦 508k/week • v13.2</div>
   </div>
-  <div class="p-2 bg-gray-500/10 rounded flex flex-col items-center gap-2">
-    <img src="https://openapi-generator.tech/img/color-logo.svg" alt="OpenAPI Generator" class="h-8 w-auto" />
-    <a href="https://github.com/OpenAPITools/openapi-generator" target="_blank" class="font-bold text-gray-300 hover:text-blue-400">openapi-generator</a>
-    <div class="opacity-60">⭐ 25.8k</div>
+  <div class="p-1.5 bg-gray-500/10 rounded flex flex-col items-center gap-1">
+    <img src="https://openapi-generator.tech/img/color-logo.svg" alt="OpenAPI Generator" class="h-6 w-auto" />
+    <a href="https://github.com/OpenAPITools/openapi-generator" target="_blank" class="font-bold text-gray-300 hover:text-blue-400 text-[11px] leading-tight">openapi-generator</a>
+    <div class="opacity-60 text-[10px]">⭐ 25.8k</div>
     <div class="opacity-50 text-[10px]">📦 1.1M/week • v2.28</div>
   </div>
-  <div class="p-2 bg-gray-500/10 rounded flex flex-col items-center gap-2">
-    <img src="https://openapi-ts.dev/assets/openapi-ts.svg" alt="openapi-typescript" class="h-8 w-auto" />
-    <a href="https://github.com/openapi-ts/openapi-typescript" target="_blank" class="font-bold text-gray-300 hover:text-blue-400">openapi-typescript</a>
-    <div class="opacity-60">⭐ 7.9k</div>
+  <div class="p-1.5 bg-gray-500/10 rounded flex flex-col items-center gap-1">
+    <img src="https://openapi-ts.dev/assets/openapi-ts.svg" alt="openapi-typescript" class="h-6 w-auto" />
+    <a href="https://github.com/openapi-ts/openapi-typescript" target="_blank" class="font-bold text-gray-300 hover:text-blue-400 text-[11px] leading-tight">openapi-typescript</a>
+    <div class="opacity-60 text-[10px]">⭐ 7.9k</div>
     <div class="opacity-50 text-[10px]">📦 2.4M/week • v7.13</div>
   </div>
-  <div class="p-2 bg-gray-500/10 rounded flex flex-col items-center gap-2">
-    <img src="https://avatars.githubusercontent.com/u/164436240?s=200&v=4" alt="Hey API" class="h-8 w-auto" />
-    <a href="https://github.com/hey-api/openapi-ts" target="_blank" class="font-bold text-gray-300 hover:text-blue-400">hey-api</a>
-    <div class="opacity-60">⭐ 4.1k</div>
+  <div class="p-1.5 bg-gray-500/10 rounded flex flex-col items-center gap-1">
+    <img src="https://avatars.githubusercontent.com/u/164436240?s=200&v=4" alt="Hey API" class="h-6 w-auto" />
+    <a href="https://github.com/hey-api/openapi-ts" target="_blank" class="font-bold text-gray-300 hover:text-blue-400 text-[11px] leading-tight">hey-api/openapi-ts</a>
+    <div class="opacity-60 text-[10px]">⭐ 4.1k</div>
     <div class="opacity-50 text-[10px]">📦 1.6M/week • v0.92</div>
   </div>
-  <div class="p-2 bg-green-500/10 border border-green-500/30 rounded flex flex-col items-center gap-2">
-    <img src="https://raw.githubusercontent.com/orval-labs/orval/master/logo/orval-logo-horizontal.svg" alt="Orval" class="h-8 w-auto" />
-    <a href="https://github.com/orval-labs/orval" target="_blank" class="font-bold text-green-400 hover:text-green-300">orval ✅</a>
-    <div class="opacity-60">⭐ 5.4k</div>
+  <div class="p-1.5 bg-green-500/10 border border-green-500/30 rounded flex flex-col items-center gap-1">
+    <img src="https://raw.githubusercontent.com/orval-labs/orval/master/logo/orval-logo-horizontal.svg" alt="Orval" class="h-6 w-auto" />
+    <a href="https://github.com/orval-labs/orval" target="_blank" class="font-bold text-green-400 hover:text-green-300 text-[11px] leading-tight">orval ✅</a>
+    <div class="opacity-60 text-[10px]">⭐ 5.4k</div>
     <div class="opacity-50 text-[10px]">📦 765k/week • v8.3</div>
   </div>
 </div>
