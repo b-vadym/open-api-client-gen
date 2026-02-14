@@ -309,24 +309,20 @@ And as a bonus — you can generate MSW mocks for testing.
 -->
 
 ---
-layout: default
+layout: two-cols
+layoutClass: gap-8
 ---
 
-# ⚙️ orval.config.ts — one config, different projects
+# ⚙️ orval.config.ts — the whole setup
 
-<div class="grid grid-cols-2 gap-4">
-
-<div>
-
-### Vue 3 + Fetch (ZipStay)
-
-```typescript {all|3|5-6|8-11|all}
+```typescript {all|3-7|8-15|16-20|all}
 import { defineConfig } from 'orval';
 
 export default defineConfig({
   zenstay: {
     input: {
       target: './var/api-doc.json',
+      validation: false,
     },
     output: {
       mode: 'tags-split',
@@ -334,6 +330,7 @@ export default defineConfig({
       schemas: './src/api/generated/models',
       client: 'fetch',
       baseUrl: '/',
+      mock: false,
       override: {
         mutator: {
           path: './src/api/custom-fetch.ts',
@@ -345,50 +342,44 @@ export default defineConfig({
 });
 ```
 
+::right::
+
+<div class="mt-14 space-y-3 text-sm">
+
+<v-clicks>
+
+<div class="p-2 bg-blue-500/10 border-l-3 border-blue-500 rounded">
+  <strong>📄 input.target</strong><br>
+  <span class="text-xs">Path to your OpenAPI spec (JSON or YAML). We copy it from the backend repo into <code>var/</code>.</span>
 </div>
 
-<div>
-
-### React 19 + React Query (Doc2Bid)
-
-```typescript {all|3|5-6|8-11|13-18|all}
-import { defineConfig } from 'orval';
-
-export default defineConfig({
-  'doc2bid-api': {
-    input: {
-      target: './var/api-doc.json',
-    },
-    output: {
-      mode: 'tags-split',
-      target: './src/services/api/generated',
-      schemas: './src/services/api/generated/models',
-      client: 'react-query',
-      baseUrl: '/',
-      override: {
-        mutator: {
-          path: './src/services/api/client/axios-client.ts',
-          name: 'customAxiosClient',
-        },
-        query: {
-          useQuery: true,
-          useMutation: true,
-          signal: true,
-        },
-      },
-    },
-  },
-});
-```
-
+<div class="p-2 bg-purple-500/10 border-l-3 border-purple-500 rounded">
+  <strong>📂 output.mode: 'tags-split'</strong><br>
+  <span class="text-xs">Each Swagger tag → separate file. Result: <code>auth/auth.ts</code>, <code>bookings/bookings.ts</code>, etc.</span>
 </div>
+
+<div class="p-2 bg-green-500/10 border-l-3 border-green-500 rounded">
+  <strong>🌐 output.client: 'fetch'</strong><br>
+  <span class="text-xs">Use native <code>fetch</code>. Other options: <code>axios</code>, <code>react-query</code>, <code>vue-query</code>, <code>angular</code>.</span>
+</div>
+
+<div class="p-2 bg-orange-500/10 border-l-3 border-orange-500 rounded">
+  <strong>🧩 override.mutator</strong><br>
+  <span class="text-xs">Your custom HTTP wrapper. Orval calls <code>customFetch()</code> for every request — you control auth, headers, error handling.</span>
+</div>
+
+</v-clicks>
+
 </div>
 
 <!--
-Here are actual configs from our projects. On the left — ZipStay on Vue with native fetch.
-On the right — Doc2Bid on React with React Query and Axios.
-The config structure is the same — only the client and mutator change.
-One tool — different frameworks, different HTTP clients.
+This is the actual config from ZipStay — our Vue 3 project.
+The input section points to the OpenAPI spec file.
+tags-split mode creates one file per API tag — clean and organized.
+We chose native fetch as the client — no axios dependency needed.
+And the mutator is the key piece — it's our custom fetch wrapper
+that handles cookie auth, base URL, and error handling.
+That's the entire setup — 25 lines of config, and Orval does the rest.
 -->
 
 ---
