@@ -69,17 +69,14 @@ We had a well-structured abstraction — but everything was **manual**:
 export type TUser = {
   readonly id: number;
   readonly email: string;
-  readonly roles: string[];
   readonly firstName: string;
   readonly lastName: string;
   readonly avatar: TFile | null;
-  readonly locale: APP_LOCALES;
 };
 
 // Hardcoded URL constants
 const ENDPOINT_LOGIN = '/api/login-check';
 const ENDPOINT_LOGOUT = '/api/logout';
-// ... other endpoints
 ```
 
 </div>
@@ -89,13 +86,16 @@ const ENDPOINT_LOGOUT = '/api/logout';
 ```typescript
 // Class-based API client wrapping fetch
 class AuthApi extends ApiClient {
-  login(username: string, password: string, apiProps?: TApiProps): Promise<TLoginResponse> {
-    return this.post<TLoginResponse>(ENDPOINT_LOGIN, {
-      body: { username, password },
-      apiProps,
-    }).then((data) => {
-      this.userStore.setAccessToken(data.refresh_token);
-
+  login(
+    username: string,
+    password: string,
+  ) {
+    return this.post<TLoginResponse>(
+      ENDPOINT_LOGIN,
+      { body: { username, password } },
+    ).then((data) => {
+      this.userStore
+        .setAccessToken(data.refresh_token);
       return data;
     });
   }
@@ -105,13 +105,6 @@ class AuthApi extends ApiClient {
 </div>
 </div>
 
-<v-click>
-
-<div class="mt-4 p-3 bg-red-500/10 border border-red-500/30 rounded">
-  <strong>The code is clean — but the problem remains:</strong> every type, every URL, every request shape is <strong>handcrafted</strong>. Backend renames a field → frontend <strong>silently breaks</strong> until someone updates the types manually.
-</div>
-
-</v-click>
 
 <!--
 Here's what our real "before" looked like — and it wasn't bad code.
@@ -119,6 +112,62 @@ We had a proper class hierarchy, typed responses, hardcoded URL constants.
 But the fundamental problem remains: every type is manually written.
 Backend renames a field — and the frontend has NO idea until runtime.
 No compile-time safety, no contract between frontend and backend.
+-->
+
+---
+layout: default
+---
+
+# 🤖 "Maybe AI can generate the types?"
+
+We tried that too — gave AI (ChatGPT, Copilot, Cursor) a OpenAPI spec:
+
+<div class="grid grid-cols-2 gap-4 mt-2">
+
+<div>
+
+```json
+// OpenAPI spec
+{ "UserResource": {
+    "properties": {
+      "id": { "type": "integer" },
+      "email": { "type": "string" },
+      "avatar": { "type": "string",
+                   "nullable": true }
+    }
+}}
+```
+
+</div>
+
+<div>
+
+```typescript
+// AI generated 🤖
+interface UserResource {
+  id: number;
+  email: string;
+  avatar: string; // ❌ forgot nullable!
+  name?: string;  // ❌ hallucination!
+}
+```
+
+</div>
+</div>
+
+<v-clicks>
+
+- ❌ **Non-deterministic** — every run produces a different result
+- ❌ **Hallucinations** — invents fields, forgets `nullable`
+- ❌ **Doesn't scale** — 100+ endpoints through a prompt?
+- ❌ **Can't integrate into CI/CD** — unreliable for automation
+
+</v-clicks>
+
+<!--
+We also tried the AI approach — ChatGPT, GitHub Copilot, Cursor.
+We gave them a swagger spec and asked to generate types.
+But it's non-deterministic, hallucinates, and doesn't scale.
 -->
 
 ---
@@ -188,62 +237,6 @@ If the backend renamed a field, the generated types change,
 and TypeScript immediately shows errors in every component that used the old name.
 We catch inconsistencies at compile time, not from angry users in production.
 And in CI — tsc runs on every pull request, so broken types simply can't get into main.
--->
-
----
-layout: default
----
-
-# 🤖 "Maybe AI can generate the types?"
-
-We tried that too — gave AI (ChatGPT, Copilot, Cursor) a OpenAPI spec:
-
-<div class="grid grid-cols-2 gap-4 mt-2">
-
-<div>
-
-```json
-// OpenAPI spec
-{ "UserResource": {
-    "properties": {
-      "id": { "type": "integer" },
-      "email": { "type": "string" },
-      "avatar": { "type": "string",
-                   "nullable": true }
-    }
-}}
-```
-
-</div>
-
-<div>
-
-```typescript
-// AI generated 🤖
-interface UserResource {
-  id: number;
-  email: string;
-  avatar: string; // ❌ forgot nullable!
-  name?: string;  // ❌ hallucination!
-}
-```
-
-</div>
-</div>
-
-<v-clicks>
-
-- ❌ **Non-deterministic** — every run produces a different result
-- ❌ **Hallucinations** — invents fields, forgets `nullable`
-- ❌ **Doesn't scale** — 100+ endpoints through a prompt?
-- ❌ **Can't integrate into CI/CD** — unreliable for automation
-
-</v-clicks>
-
-<!--
-We also tried the AI approach — ChatGPT, GitHub Copilot, Cursor.
-We gave them a swagger spec and asked to generate types.
-But it's non-deterministic, hallucinates, and doesn't scale.
 -->
 
 ---
