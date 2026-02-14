@@ -261,17 +261,17 @@ layoutClass: gap-8
 
 <v-clicks>
 
-- 🔌 **Framework hooks** out of the box
-  - React Query `useQuery` / `useMutation`
-  - Vue Query, SWR, Angular
-- 🧩 **Custom mutator** — your own HTTP client
-  - Axios with interceptors
-  - Native fetch with cookies
-- 📂 **`tags-split`** — clean code split by tags
+- � **Clean file structure** — `tags-split` mode
+  - One file per API tag, models in separate dir
   - `generated/auth/auth.ts`
-  - `generated/users/users.ts`
-- 🧪 **MSW mocks** — testing without a backend
-- ✅ **Zod schemas** — runtime validation
+  - `generated/bookings/bookings.ts`
+- 🛡️ **Full TypeScript type-safety**
+  - Every request / response / param is typed
+  - Rename on backend → compile error on frontend
+- 🧩 **Native fetch or Axios** + custom mutator
+  - Your own HTTP client with interceptors
+  - Cookie auth, JWT refresh — all supported
+- 🎁 **Bonus:** MSW mocks, Zod schemas, React/Vue Query hooks
 
 </v-clicks>
 
@@ -281,20 +281,22 @@ layoutClass: gap-8
 
 ```bash
 # One command — and you're done
-npx orval
+npm run api:generate
 
-# What you get:
-src/services/api/generated/
+# ZipStay — real output:
+src/api/generated/
 ├── auth/
-│   └── auth.ts          # usePostApiLoginCheck()
-├── users/
-│   └── users.ts         # useGetApiUsers()
-├── projects/
-│   └── projects.ts      # useGetApiProjects()
+│   └── auth.ts       # postApiLoginCheck()
+├── bookings/
+│   └── bookings.ts   # getApiBookingList()
+├── properties/
+│   └── properties.ts # getApiPropertyList()
+├── guests/
+│   └── guests.ts     # getApiGuestList()
+├── ... (40 tag dirs)
 └── models/
-    ├── userApiResource.ts
-    ├── projectResource.ts
-    └── ... (96 models)
+    └── ... (507 models)
+# 547 files • 18k LoC • generated
 ```
 
 </div>
