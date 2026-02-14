@@ -200,14 +200,14 @@ layout: default
 
 # 🤖 "Maybe AI can generate the types?"
 
-We tried that too — gave AI (ChatGPT, Copilot, Cursor) a Swagger spec:
+We tried that too — gave AI (ChatGPT, Copilot, Cursor) a OpenAPI spec:
 
 <div class="grid grid-cols-2 gap-4 mt-2">
 
 <div>
 
 ```json
-// Swagger spec
+// OpenAPI spec
 { "UserResource": {
     "properties": {
       "id": { "type": "integer" },
