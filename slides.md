@@ -64,7 +64,7 @@ We had a well-structured abstraction — but everything was **manual**:
 
 <div>
 
-```typescript {all|2-3|5-8|all}
+```typescript
 // Manually written types for every entity
 export type TUser = {
   readonly id: number;
@@ -77,31 +77,27 @@ export type TUser = {
 };
 
 // Hardcoded URL constants
+const ENDPOINT_LOGIN = '/api/login-check';
 const ENDPOINT_LOGOUT = '/api/logout';
-const ENDPOINT_SIGNUP = '/api/sign-up/start';
-const ENDPOINT_REFRESH = '/api/token/refresh';
-const ENDPOINT_RESET = '/api/reset-password/start';
+// ... other endpoints
 ```
 
 </div>
 
 <div>
 
-```typescript {all|1-3|5-9|all}
+```typescript
 // Class-based API client wrapping fetch
 class AuthApi extends ApiClient {
-  async login(email: string, password: string) {
-    return this.post<TLoginResponse>(
-      '/api/login_check',
-      { body: { email, password } }
-    );
-  }
+  login(username: string, password: string, apiProps?: TApiProps): Promise<TLoginResponse> {
+    return this.post<TLoginResponse>(ENDPOINT_LOGIN, {
+      body: { username, password },
+      apiProps,
+    }).then((data) => {
+      this.userStore.setAccessToken(data.refresh_token);
 
-  async refreshAccessToken() {
-    return this.post<TRefreshTokenResponse>(
-      ENDPOINT_REFRESH,
-      { body: { refresh_token: token } }
-    );
+      return data;
+    });
   }
 }
 ```
