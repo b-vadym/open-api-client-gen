@@ -851,6 +851,15 @@ class: text-center
 
 ## Questions?
 
+<div class="mt-8">
+  <QrLink value="https://b-vadym.github.io/open-api-client-gen" :size="180" level="M" />
+  <div class="mt-3 text-sm">
+    <a href="https://b-vadym.github.io/open-api-client-gen" target="_blank" class="text-blue-400">
+      b-vadym.github.io/open-api-client-gen
+    </a>
+  </div>
+</div>
+
 <div class="mt-8 opacity-50 text-sm">
 
 Generating API Clients from OpenAPI • Annual Conference 2026
