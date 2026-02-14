@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "slidev --open",
     "build": "slidev build",
+    "build:gh-pages": "slidev build --base /open-api-client-gen/",
     "export": "slidev export",
     "presenter": "slidev --remote"
   },
