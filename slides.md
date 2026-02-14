@@ -205,11 +205,12 @@ Tools we evaluated:
 | 1️⃣ | **[swagger-typescript-api](https://github.com/acacode/swagger-typescript-api)** | TS client (Fetch/Axios) | Simple, single file, TS-only |
 | 2️⃣ | **[openapi-generator-cli](https://github.com/OpenAPITools/openapi-generator)** | Clients for 50+ languages | Enterprise, **requires Java** ☕ |
 | 3️⃣ | **[openapi-typescript](https://github.com/drwpow/openapi-typescript)** | Types only (no runtime) | Minimal footprint |
-| 4️⃣ | **[orval](https://github.com/orval-labs/orval)** | Types + hooks + mocks | React Query, Vue Query, Zod, MSW |
+| 4️⃣ | **[hey-api/openapi-ts](https://github.com/hey-api/openapi-ts)** | TS client + SDK | Modern, plugin system, Fetch/Axios |
+| 5️⃣ | **[orval](https://github.com/orval-labs/orval)** | Types + hooks + mocks | React Query, Vue Query, Zod, MSW |
 
 <v-click>
 
-<div class="mt-6 grid grid-cols-4 gap-2 text-center text-xs">
+<div class="mt-6 grid grid-cols-5 gap-2 text-center text-xs">
   <div class="p-2 bg-gray-500/10 rounded">
     <a href="https://github.com/acacode/swagger-typescript-api" target="_blank" class="font-bold text-gray-300 hover:text-blue-400">swagger-ts-api</a>
     <div class="opacity-60">⭐ 4.1k</div>
@@ -222,6 +223,10 @@ Tools we evaluated:
     <a href="https://github.com/drwpow/openapi-typescript" target="_blank" class="font-bold text-gray-300 hover:text-blue-400">openapi-typescript</a>
     <div class="opacity-60">⭐ 7.9k</div>
   </div>
+  <div class="p-2 bg-gray-500/10 rounded">
+    <a href="https://github.com/hey-api/openapi-ts" target="_blank" class="font-bold text-gray-300 hover:text-blue-400">hey-api</a>
+    <div class="opacity-60">⭐ 2.3k</div>
+  </div>
   <div class="p-2 bg-green-500/10 border border-green-500/30 rounded">
     <a href="https://github.com/orval-labs/orval" target="_blank" class="font-bold text-green-400 hover:text-green-300">orval ✅</a>
     <div class="opacity-60">⭐ 5.4k</div>
@@ -231,10 +236,11 @@ Tools we evaluated:
 </v-click>
 
 <!--
-We evaluated 4 main libraries.
+We evaluated 5 main libraries.
 swagger-typescript-api — simple, but no framework hooks.
 openapi-generator — enterprise-grade, but requires Java.
 openapi-typescript — types only, no runtime.
+hey-api/openapi-ts — modern with plugin system, supports both Fetch and Axios.
 Orval — full integration with React Query, Vue Query, MSW mock generation, and Zod schemas.
 -->
 
