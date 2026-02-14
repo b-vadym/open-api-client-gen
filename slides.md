@@ -202,28 +202,28 @@ Tools we evaluated:
 
 | | Library | What it generates | Key traits |
 |---|---|---|---|
-| 1️⃣ | **swagger-typescript-api** | TS client (Fetch/Axios) | Simple, single file, TS-only |
-| 2️⃣ | **openapi-generator-cli** | Clients for 50+ languages | Enterprise, **requires Java** ☕ |
-| 3️⃣ | **openapi-typescript** | Types only (no runtime) | Minimal footprint |
-| 4️⃣ | **orval** | Types + hooks + mocks | React Query, Vue Query, Zod, MSW |
+| 1️⃣ | **[swagger-typescript-api](https://github.com/acacode/swagger-typescript-api)** | TS client (Fetch/Axios) | Simple, single file, TS-only |
+| 2️⃣ | **[openapi-generator-cli](https://github.com/OpenAPITools/openapi-generator)** | Clients for 50+ languages | Enterprise, **requires Java** ☕ |
+| 3️⃣ | **[openapi-typescript](https://github.com/drwpow/openapi-typescript)** | Types only (no runtime) | Minimal footprint |
+| 4️⃣ | **[orval](https://github.com/orval-labs/orval)** | Types + hooks + mocks | React Query, Vue Query, Zod, MSW |
 
 <v-click>
 
 <div class="mt-6 grid grid-cols-4 gap-2 text-center text-xs">
   <div class="p-2 bg-gray-500/10 rounded">
-    <div class="font-bold">swagger-ts-api</div>
+    <a href="https://github.com/acacode/swagger-typescript-api" target="_blank" class="font-bold text-gray-300 hover:text-blue-400">swagger-ts-api</a>
     <div class="opacity-60">⭐ 4.1k</div>
   </div>
   <div class="p-2 bg-gray-500/10 rounded">
-    <div class="font-bold">openapi-generator</div>
+    <a href="https://github.com/OpenAPITools/openapi-generator" target="_blank" class="font-bold text-gray-300 hover:text-blue-400">openapi-generator</a>
     <div class="opacity-60">⭐ 25.8k</div>
   </div>
   <div class="p-2 bg-gray-500/10 rounded">
-    <div class="font-bold">openapi-typescript</div>
+    <a href="https://github.com/drwpow/openapi-typescript" target="_blank" class="font-bold text-gray-300 hover:text-blue-400">openapi-typescript</a>
     <div class="opacity-60">⭐ 7.9k</div>
   </div>
   <div class="p-2 bg-green-500/10 border border-green-500/30 rounded">
-    <div class="font-bold text-green-400">orval ✅</div>
+    <a href="https://github.com/orval-labs/orval" target="_blank" class="font-bold text-green-400 hover:text-green-300">orval ✅</a>
     <div class="opacity-60">⭐ 5.4k</div>
   </div>
 </div>
