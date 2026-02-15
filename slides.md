@@ -446,6 +446,65 @@ This is a one-time setup — write it once, and it works for all 547 generated f
 -->
 
 ---
+layout: default
+---
+
+# What it looks like now
+
+Everything is **generated** from OpenAPI spec — zero manual typing:
+
+<div class="grid grid-cols-2 gap-4">
+
+<div>
+
+```typescript
+// ✨ Generated types
+// models/userApiResource.ts
+export interface UserApiResource {
+  id: number;
+  email: string;
+  roles: string[];
+  /** @nullable */
+  avatar?: FileApiResource;
+  firstName: string;
+  lastName: string;
+}
+```
+
+</div>
+
+<div>
+
+```typescript
+// ✨ Generated API client
+// auth/auth.ts
+export const postApiLoginCheck = async (
+  body: PostApiLoginCheckBody,
+  options?: RequestInit
+): Promise<PostApiLoginCheckResponse> => {
+  return customFetch<PostApiLoginCheckResponse>(
+    '/api/login-check',
+    {
+      ...options,
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    }
+  );
+};
+```
+
+</div>
+</div>
+
+<!--
+And here's the "after" — the exact same functionality, but entirely generated.
+Types match the backend 1:1. Function signatures are type-safe.
+Backend renames a field — regenerate, and TypeScript immediately shows errors.
+No manual updates, no drift, no guessing.
+-->
+
+---
 layout: center
 ---
 
