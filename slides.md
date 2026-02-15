@@ -446,29 +446,6 @@ This is a one-time setup — write it once, and it works for all 547 generated f
 -->
 
 ---
-layout: default
----
-
-# 📈 Impact metrics
-
-<div class="mt-10 text-center">
-
-| Metric | Before (manual code) | After (Orval) |
-|---|---|---|
-| New endpoint integration time | ~30 minutes | **~2 minutes** |
-| API layer type-safety | ~20% (any) | **100%** |
-| One config → multiple frameworks | ❌ | **Vue + React** |
-| Errors on API changes | In production 🔥 | **At compile time** 🛡️ |
-
-</div>
-
-<!--
-These are the same metrics, now on a dedicated slide for readability.
-The key message: less integration time, higher type-safety, shared approach across stacks,
-and API contract issues are caught at compile time instead of in production.
--->
-
----
 layout: center
 ---
 
