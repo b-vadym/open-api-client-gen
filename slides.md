@@ -507,16 +507,14 @@ layout: center
 
 ```mermaid
 graph LR
-    A[🖥️ Backend] -->|Generates| B[📋 OpenAPI Spec]
-    B -->|Copy to| C[📁 var/api-doc.json]
-    C -->|npm run api:generate| D[⚡ Orval]
-    D -->|Generates| E[📂 generated/]
-    E -->|Contains| F[🪝 Hooks + Types]
-    F -->|Used in| G[🧩 Components]
+  A[🖥️ Backend] --> B[📄 API spec]
+  B --> C[⚡ Generate client]
+  C --> D[🪝 Typed hooks & models]
+  D --> E[✅ Same in local and CI]
 
-    style A fill:#3b82f6,stroke:#1e40af,color:#fff
-    style D fill:#8b5cf6,stroke:#6d28d9,color:#fff
-    style F fill:#10b981,stroke:#047857,color:#fff
+  style A fill:#3b82f6,stroke:#1e40af,color:#fff
+  style C fill:#8b5cf6,stroke:#6d28d9,color:#fff
+  style D fill:#10b981,stroke:#047857,color:#fff
 ```
 
 </div>
@@ -527,30 +525,33 @@ graph LR
 
 <div class="p-3 bg-blue-500/10 rounded">
 
-**1. Get the spec**
+**1. Backend updates API**
 ```bash
-# From the backend team
-cp swagger.json var/api-doc.json
+# one command for local refresh
+make rebuild
+
+# only regenerate spec + client
+make generate-api-client
 ```
 
 </div>
 
 <div class="p-3 bg-purple-500/10 rounded">
 
-**2. Generate**
+**2. Frontend regenerates code**
 ```bash
-npm run api:generate
-# or: npx orval
+cd frontend
+yarn api:generate
 ```
 
 </div>
 
 <div class="p-3 bg-green-500/10 rounded">
 
-**3. Use it**
-```typescript
-import { useGetApiUsers }
-  from '@/api/generated/users/users';
+**3. CI repeats the same flow**
+```yaml
+on every push / merge request:
+spec -> generate -> build/tests
 ```
 
 </div>
@@ -560,9 +561,10 @@ import { useGetApiUsers }
 </v-click>
 
 <!--
-The process is very simple. The backend generates an OpenAPI spec.
-We copy it into the project, run orval — and get ready-to-use hooks and types.
-Three steps — and the API layer is done.
+Simple message for the audience:
+backend changes API -> frontend regenerates -> typed client is ready.
+In CI this runs automatically for every code change (push/MR),
+so the generated client is always validated in the pipeline.
 -->
 
 ---
