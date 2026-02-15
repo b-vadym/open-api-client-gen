@@ -163,7 +163,7 @@ layout: center
 ```mermaid
 %%{init: {'theme':'base','themeVariables':{'fontSize':'22px'}}}%%
 flowchart LR
-  A[📄 Backend] --> B[📋 Swagger Spec]
+  A[📄 Backend] --> B[📋 OpenAPI Spec]
   B --> C[⚡ Generate]
   C --> D[🛡️ Type Check]
 
@@ -351,7 +351,7 @@ export default defineConfig({
 </div>
 
 <div v-click="2" class="p-1.5 bg-purple-500/10 border-l-3 border-purple-500 rounded">
-  <strong>📂 tags-split</strong> — each Swagger tag → separate file. Result: <code>auth/auth.ts</code>, <code>bookings/bookings.ts</code>, etc.
+  <strong>📂 tags-split</strong> — each OpenAPI tag → separate file. Result: <code>auth/auth.ts</code>, <code>bookings/bookings.ts</code>, etc.
 </div>
 
 <div v-click="2" class="p-1.5 bg-green-500/10 border-l-3 border-green-500 rounded">
