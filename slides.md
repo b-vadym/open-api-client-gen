@@ -798,17 +798,17 @@ npm run api:generate
 
 <div class="mt-10 grid grid-cols-3 gap-8 text-center">
   <div>
-    <div class="text-3xl mb-2">📖</div>
+    <img src="https://orval.dev/images/emblem.svg" alt="Orval icon" class="h-8 w-8 mx-auto mb-2" />
     <a href="https://orval.dev" target="_blank" class="text-blue-400 text-lg">orval.dev</a>
     <div class="text-sm opacity-60">Documentation</div>
   </div>
   <div>
-    <div class="text-3xl mb-2">🐙</div>
+    <img src="https://github.com/favicon.ico" alt="GitHub icon" class="h-8 w-8 mx-auto mb-2" />
     <a href="https://github.com/orval-labs/orval" target="_blank" class="text-blue-400 text-lg">GitHub</a>
     <div class="text-sm opacity-60">orval-labs/orval</div>
   </div>
   <div>
-    <div class="text-3xl mb-2">🎮</div>
+    <img src="https://orval.dev/images/emblem.svg" alt="Orval Playground icon" class="h-8 w-8 mx-auto mb-2" />
     <a href="https://orval.dev/playground" target="_blank" class="text-blue-400 text-lg">Playground</a>
     <div class="text-sm opacity-60">Try it online</div>
   </div>
