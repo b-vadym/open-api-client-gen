@@ -461,13 +461,26 @@ layout: default
 | Mode + client | `tags-split` + `fetch` | `tags-split` + `react-query` | `tags-split` + `react-query` |
 | Mutator | `customFetch` | `customAxiosClient` | `customAxiosClient` |
 | Auth runtime pattern | `credentials: 'include'` + 401 retry via response handler | `withCredentials: true` + logout/redirect on 401 | `withCredentials: true` + refresh queue + retry |
+| API endpoints (OpenAPI) | **41 paths / 133 operations** | **22 paths / 48 operations** | **15 paths / 28 operations** |
 | API surface (proxy) | ~40 tag groups; models index 514 lines | ~20 tag groups; models index 232 lines | ~13 tag groups; models index 105 lines |
 
 </div>
 
-<v-click>
+<!--
+Same approach, but now compared on identical fields.
+ZipStay is Vue + fetch mutator, HealUp and Doc2Bid are React + react-query with Axios mutators.
+All three use tags-split and custom HTTP wrappers, while auth strategy differs per product.
+Endpoint counts come directly from OpenAPI paths (path keys and HTTP operations).
+So the architecture pattern is shared, but runtime behavior is tailored to each domain.
+-->
 
-<div class="mt-6 text-center">
+---
+layout: default
+---
+
+# 📈 Impact metrics
+
+<div class="mt-10 text-center">
 
 | Metric | Before (manual code) | After (Orval) |
 |---|---|---|
@@ -478,13 +491,10 @@ layout: default
 
 </div>
 
-</v-click>
-
 <!--
-Same approach, but now compared on identical fields.
-ZipStay is Vue + fetch mutator, HealUp and Doc2Bid are React + react-query with Axios mutators.
-All three use tags-split and custom HTTP wrappers, while auth strategy differs per product.
-So the architecture pattern is shared, but runtime behavior is tailored to each domain.
+These are the same metrics, now on a dedicated slide for readability.
+The key message: less integration time, higher type-safety, shared approach across stacks,
+and API contract issues are caught at compile time instead of in production.
 -->
 
 ---
