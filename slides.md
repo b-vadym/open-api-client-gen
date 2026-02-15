@@ -449,35 +449,6 @@ This is a one-time setup — write it once, and it works for all 547 generated f
 layout: default
 ---
 
-# 🏗️ 3 projects — 1 approach
-
-<div class="mt-5 text-[12px] leading-tight">
-
-| Field | 🏠 ZipStay | 🏥 HealUp | 📄 Doc2Bid |
-|---|---|---|---|
-| Frontend stack | Vue **3.5** | React **19.0** | React **19.2** |
-| State management | Pinia | Zustand | Zustand |
-| Orval version | `^7.3.0` / generated `7.13.0` | `^7.17.2` / generated `7.17.2` | `^8.0.0-rc.2` / generated `8.0.0-rc.2` |
-| Mode + client | `tags-split` + `fetch` | `tags-split` + `react-query` | `tags-split` + `react-query` |
-| Mutator | `customFetch` | `customAxiosClient` | `customAxiosClient` |
-| Auth runtime pattern | `credentials: 'include'` + 401 retry via response handler | `withCredentials: true` + logout/redirect on 401 | `withCredentials: true` + refresh queue + retry |
-| API endpoints (OpenAPI) | **41 paths / 133 operations** | **22 paths / 48 operations** | **15 paths / 28 operations** |
-| API surface (proxy) | ~40 tag groups; models index 514 lines | ~20 tag groups; models index 232 lines | ~13 tag groups; models index 105 lines |
-
-</div>
-
-<!--
-Same approach, but now compared on identical fields.
-ZipStay is Vue + fetch mutator, HealUp and Doc2Bid are React + react-query with Axios mutators.
-All three use tags-split and custom HTTP wrappers, while auth strategy differs per product.
-Endpoint counts come directly from OpenAPI paths (path keys and HTTP operations).
-So the architecture pattern is shared, but runtime behavior is tailored to each domain.
--->
-
----
-layout: default
----
-
 # 📈 Impact metrics
 
 <div class="mt-10 text-center">
@@ -632,54 +603,218 @@ Pick one policy and keep it stable.
 -->
 
 ---
+layout: default
+---
+
+# 🏗️ 3 projects — 1 approach
+
+<div class="mt-5 text-[12px] leading-tight">
+
+| Field | 🏠 ZipStay | 🏥 HealUp | 📄 Doc2Bid |
+|---|---|---|---|
+| Frontend stack | Vue **3** | React **19** | React **19** |
+| State management | Pinia | Zustand | Zustand |
+| Mode + client | `tags-split` + `fetch` | `tags-split` + `react-query` | `tags-split` + `react-query` |
+| Mutator | `customFetch` | `customAxiosClient` | `customAxiosClient` |
+| API endpoints (OpenAPI) | **41 paths / 133 operations** | **22 paths / 48 operations** | **15 paths / 28 operations** |
+
+</div>
+
+<!--
+Current state snapshot across 3 products.
+Same generation approach, adapted per domain and runtime needs.
+-->
+
+---
+layout: two-cols
+layoutClass: gap-8
+---
+
+# 🔮 Future Plan: Starter Projects
+
+<div class="mt-2 flex items-center gap-3 text-sm">
+  <img src="https://raw.githubusercontent.com/orval-labs/orval/master/logo/orval-logo-horizontal.svg" alt="Orval logo" class="h-7 w-auto" />
+  <a href="https://orval.dev" target="_blank" class="text-blue-400 hover:text-blue-300">orval.dev</a>
+  <span class="opacity-50">•</span>
+  <a href="https://github.com/orval-labs/orval" target="_blank" class="text-blue-400 hover:text-blue-300">GitHub</a>
+</div>
+
+<div class="mt-6 space-y-3 text-sm">
+
+<div class="p-3 bg-blue-500/10 border border-blue-500/30 rounded-lg">
+  <strong>Why it matters</strong><br>
+  New projects start with the same API contract workflow from day one.
+</div>
+
+<div class="p-3 bg-purple-500/10 border border-purple-500/30 rounded-lg">
+  <strong>What we standardize</strong><br>
+  Shared `orval.config`, mutator pattern, and generation script.
+</div>
+
+</div>
+
+::right::
+
+<div class="mt-12">
+
+```bash
+# starter template baseline
+npm run api:generate
+npm run typecheck
+```
+
+<div class="mt-4 text-xs opacity-70">
+Goal: one onboarding path across all new frontend projects.
+</div>
+
+</div>
+
+<!--
+Future direction #1: make Orval part of internal starter templates.
+So teams begin with the same deterministic API workflow.
+-->
+
+---
+layout: two-cols
+layoutClass: gap-8
+---
+
+# 🔮 Future Plan: Zod
+
+<div class="mt-2 flex items-center gap-3 text-sm">
+  <img src="https://zod.dev/logo/logo.png" alt="Zod logo" class="h-7 w-7 rounded" />
+  <a href="https://zod.dev" target="_blank" class="text-blue-400 hover:text-blue-300">zod.dev</a>
+  <span class="opacity-50">•</span>
+  <a href="https://github.com/colinhacks/zod" target="_blank" class="text-blue-400 hover:text-blue-300">GitHub</a>
+</div>
+
+<div class="mt-6 space-y-3 text-sm">
+
+<div class="p-3 bg-blue-500/10 border border-blue-500/30 rounded-lg">
+  <strong>Why it matters</strong><br>
+  TypeScript checks compile-time, Zod adds runtime guarantees.
+</div>
+
+<div class="p-3 bg-purple-500/10 border border-purple-500/30 rounded-lg">
+  <strong>What we use from Orval</strong><br>
+  Generate schemas and validate critical payloads at runtime.
+</div>
+
+</div>
+
+::right::
+
+<div class="mt-12">
+
+```bash
+# direction for critical endpoints
+# schema.parse(response)
+```
+
+<div class="mt-4 text-xs opacity-70">
+Goal: detect contract drift before it reaches users.
+</div>
+
+</div>
+
+<!--
+Future direction #2: runtime validation for the most sensitive endpoints.
+Start focused, then scale.
+-->
+
+---
+layout: two-cols
+layoutClass: gap-8
+---
+
+# 🔮 Future Plan: MSW
+
+<div class="mt-2 flex items-center gap-3 text-sm">
+  <img src="https://mswjs.io/_astro/msw.ChZQPzKa.svg" alt="MSW logo" class="h-7 w-7" />
+  <a href="https://mswjs.io/docs" target="_blank" class="text-blue-400 hover:text-blue-300">mswjs.io/docs</a>
+  <span class="opacity-50">•</span>
+  <a href="https://github.com/mswjs/msw" target="_blank" class="text-blue-400 hover:text-blue-300">GitHub</a>
+</div>
+
+<div class="mt-6 space-y-3 text-sm">
+
+<div class="p-3 bg-blue-500/10 border border-blue-500/30 rounded-lg">
+  <strong>Why it matters</strong><br>
+  Stable frontend development even when backend is unavailable.
+</div>
+
+<div class="p-3 bg-purple-500/10 border border-purple-500/30 rounded-lg">
+  <strong>What we use from Orval</strong><br>
+  Generate MSW handlers directly from the same OpenAPI contract.
+</div>
+
+</div>
+
+::right::
+
+<div class="mt-12">
+
+```bash
+# future experiment
+orval --config ./orval.config.ts
+# enable mock output for selected APIs
+```
+
+<div class="mt-4 text-xs opacity-70">
+Goal: faster UI iteration with predictable API behavior.
+</div>
+
+</div>
+
+<!--
+Future direction #3: use Orval MSW output for stable frontend workflows.
+Keep scope small and practical.
+-->
+
+---
 layout: center
 class: text-center
 ---
 
 # 🚀 Try it yourself!
 
-<div class="mt-8 space-y-4">
+<div class="mt-10" style="transform: scale(1.18); transform-origin: top center;">
+
+<div class="mt-6 space-y-5 text-left mx-auto max-w-3xl text-lg">
 
 ```bash
 # 1. Install
 npm install -D orval
 
 # 2. Create config
-npx orval init
+# orval.config.ts (or .js / .mjs)
 
 # 3. Generate
-npx orval
+# package.json: "api:generate": "orval"
+npm run api:generate
 ```
 
 </div>
 
-<div class="mt-8 grid grid-cols-3 gap-6 text-center">
+<div class="mt-10 grid grid-cols-3 gap-8 text-center">
   <div>
-    <div class="text-2xl mb-2">📖</div>
-    <a href="https://orval.dev" target="_blank" class="text-blue-400">orval.dev</a>
-    <div class="text-xs opacity-50">Documentation</div>
+    <div class="text-3xl mb-2">📖</div>
+    <a href="https://orval.dev" target="_blank" class="text-blue-400 text-lg">orval.dev</a>
+    <div class="text-sm opacity-60">Documentation</div>
   </div>
   <div>
-    <div class="text-2xl mb-2">🐙</div>
-    <a href="https://github.com/orval-labs/orval" target="_blank" class="text-blue-400">GitHub</a>
-    <div class="text-xs opacity-50">orval-labs/orval</div>
+    <div class="text-3xl mb-2">🐙</div>
+    <a href="https://github.com/orval-labs/orval" target="_blank" class="text-blue-400 text-lg">GitHub</a>
+    <div class="text-sm opacity-60">orval-labs/orval</div>
   </div>
   <div>
-    <div class="text-2xl mb-2">🎮</div>
-    <a href="https://orval.dev/playground" target="_blank" class="text-blue-400">Playground</a>
-    <div class="text-xs opacity-50">Try it online</div>
+    <div class="text-3xl mb-2">🎮</div>
+    <a href="https://orval.dev/playground" target="_blank" class="text-blue-400 text-lg">Playground</a>
+    <div class="text-sm opacity-60">Try it online</div>
   </div>
 </div>
 
-<v-click>
-
-<div class="mt-8 p-4 bg-green-500/10 border border-green-500/30 rounded-lg">
-  <strong>TL;DR:</strong> One config → types + hooks + client.<br>
-  Works with Vue, React, Angular. Fetch, Axios — doesn't matter.<br>
-  <strong>3 projects. 0 manual types. 100% type-safety.</strong>
 </div>
-
-</v-click>
 
 <!--
 Three steps to get started: install, create config, generate.
