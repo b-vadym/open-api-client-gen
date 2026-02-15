@@ -571,39 +571,64 @@ so the generated client is always validated in the pipeline.
 layout: default
 ---
 
-# ⚠️ Gotchas
+# ⚠️ Reality Check · 1/2
 
-Things to keep in mind:
-
-<v-clicks>
-
-<div class="p-3 mt-2 bg-orange-500/10 border-l-4 border-orange-500 rounded">
-  <strong>📋 OpenAPI spec quality</strong><br>
-  <span class="text-sm">Orval generates exactly what's described in the spec. If the backend doesn't document fields — they won't appear in the types. <strong>Agree with your backend team</strong> on documentation quality.</span>
+<div class="mt-8 grid grid-cols-2 gap-6 text-sm">
+  <div class="p-4 bg-red-500/10 border border-red-500/30 rounded-lg">
+    <div class="text-base font-semibold">📋 Agreement risk</div>
+    <ul class="mt-2 space-y-1.5 opacity-90">
+      <li>Orval generates exactly what is in OpenAPI.</li>
+      <li>Generic schemas (like <code>object</code>) produce weak types.</li>
+      <li>Without clear spec ownership, quality degrades over time.</li>
+    </ul>
+  </div>
+  <div class="p-4 bg-green-500/10 border border-green-500/30 rounded-lg">
+    <div class="text-base font-semibold">🛡️ Team agreement</div>
+    <ul class="mt-2 space-y-1.5 opacity-90">
+      <li>Backend validates contract via <a href="https://github.com/thephpleague/openapi-psr7-validator" target="_blank" class="text-blue-400 hover:text-blue-300">league/openapi-psr7-validator</a>.</li>
+      <li>Request/response is validated against OpenAPI.</li>
+      <li>Backend and frontend review schema precision together.</li>
+    </ul>
+  </div>
 </div>
 
-<div class="p-3 mt-2 bg-orange-500/10 border-l-4 border-orange-500 rounded">
-  <strong>📁 Gitignore vs Commit</strong><br>
-  <span class="text-sm">We gitignore generated code (ZipStay, HealUp). Doc2Bid commits it. Both approaches work — just agree within your team.</span>
-</div>
-
-<div class="p-3 mt-2 bg-orange-500/10 border-l-4 border-orange-500 rounded">
-  <strong>🔄 Version migrations</strong><br>
-  <span class="text-sm">ZipStay started with Orval 7.3, Doc2Bid is already on 8.0-rc. Major versions require custom mutator adaptation (e.g., signature changes).</span>
-</div>
-
-<div class="p-3 mt-2 bg-orange-500/10 border-l-4 border-orange-500 rounded">
-  <strong>🧩 Custom Mutator</strong><br>
-  <span class="text-sm">Writing the initial mutator requires understanding how Orval shapes requests. But it's a <strong>one-time cost</strong> — after that it works for all endpoints.</span>
-</div>
-
-</v-clicks>
+<div class="mt-5 mx-auto w-fit px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-center text-[13px] font-semibold tracking-wide">Agreement #1: spec quality is a shared responsibility.</div>
 
 <!--
-Let's be honest about the gotchas.
-The most important one — the quality of the swagger spec. If the backend doesn't document fields, Orval can't generate them.
-Also agree within your team — commit generated code or not.
-And major Orval updates require mutator adaptation — but that's a one-time task.
+Main risk #1: quality of OpenAPI spec.
+Deterministic generation is only as good as the contract itself.
+-->
+
+---
+layout: default
+---
+
+# ⚠️ Reality Check · 2/2
+
+<div class="mt-8 grid grid-cols-2 gap-6 text-sm">
+  <div class="p-4 bg-red-500/10 border border-red-500/30 rounded-lg">
+    <div class="text-base font-semibold">📁 Agreement risk</div>
+    <ul class="mt-2 space-y-1.5 opacity-90">
+      <li>Mixed policy creates noisy PRs and recurring confusion.</li>
+      <li>Developers follow different expectations per repository.</li>
+      <li>CI and review process become inconsistent.</li>
+    </ul>
+  </div>
+  <div class="p-4 bg-green-500/10 border border-green-500/30 rounded-lg">
+    <div class="text-base font-semibold">✅ Team agreement</div>
+    <ul class="mt-2 space-y-1.5 opacity-90">
+      <li>We do <strong>not</strong> commit generated API code.</li>
+      <li>Generated folders stay in <code>.gitignore</code>.</li>
+      <li>CI regenerates client and validates build/tests.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="mt-5 mx-auto w-fit px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-center text-[13px] font-semibold tracking-wide">Agreement #2: generated code is reproducible, so we keep git clean.</div>
+
+<!--
+Risk #2 is organizational.
+Pick one policy and keep it stable.
 -->
 
 ---
