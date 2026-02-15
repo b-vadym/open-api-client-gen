@@ -451,49 +451,17 @@ layout: default
 
 # 🏗️ 3 projects — 1 approach
 
-<div class="grid grid-cols-3 gap-4 mt-6">
+<div class="mt-5 text-[12px] leading-tight">
 
-<div class="p-4 bg-green-500/10 border border-green-500/20 rounded-lg">
-
-### 🏠 ZipStay
-<div class="text-sm mt-2 space-y-1">
-
-- **Vue 3** + Pinia
-- Orval **v7.3** • `fetch`
-- Custom `customFetch`
-- Cookie-based auth
-- 25+ API tags
-
-</div>
-</div>
-
-<div class="p-4 bg-blue-500/10 border border-blue-500/20 rounded-lg">
-
-### 🏥 HealUp
-<div class="text-sm mt-2 space-y-1">
-
-- **React 19** + Zustand
-- Orval **v7.17** • `react-query`
-- Custom `customAxiosClient`
-- TanStack Query 5
-- Templates, Steps API
-
-</div>
-</div>
-
-<div class="p-4 bg-purple-500/10 border border-purple-500/20 rounded-lg">
-
-### 📄 Doc2Bid
-<div class="text-sm mt-2 space-y-1">
-
-- **React 19** + Zustand
-- Orval **v8.0-rc** • `react-query`
-- JWT refresh queue
-- 96+ models
-- Auth, Projects, Bids
-
-</div>
-</div>
+| Field | 🏠 ZipStay | 🏥 HealUp | 📄 Doc2Bid |
+|---|---|---|---|
+| Frontend stack | Vue **3.5** | React **19.0** | React **19.2** |
+| State management | Pinia | Zustand | Zustand |
+| Orval version | `^7.3.0` / generated `7.13.0` | `^7.17.2` / generated `7.17.2` | `^8.0.0-rc.2` / generated `8.0.0-rc.2` |
+| Mode + client | `tags-split` + `fetch` | `tags-split` + `react-query` | `tags-split` + `react-query` |
+| Mutator | `customFetch` | `customAxiosClient` | `customAxiosClient` |
+| Auth runtime pattern | `credentials: 'include'` + 401 retry via response handler | `withCredentials: true` + logout/redirect on 401 | `withCredentials: true` + refresh queue + retry |
+| API surface (proxy) | ~40 tag groups; models index 514 lines | ~20 tag groups; models index 232 lines | ~13 tag groups; models index 105 lines |
 
 </div>
 
@@ -513,10 +481,10 @@ layout: default
 </v-click>
 
 <!--
-Here are three real projects where we use this approach.
-ZipStay — Vue, HealUp and Doc2Bid — React. Different Orval versions, different HTTP clients,
-but the same pattern. Time to integrate a new endpoint — from 30 minutes down to 2.
-And most importantly — errors are caught at compile time, not in production.
+Same approach, but now compared on identical fields.
+ZipStay is Vue + fetch mutator, HealUp and Doc2Bid are React + react-query with Axios mutators.
+All three use tags-split and custom HTTP wrappers, while auth strategy differs per product.
+So the architecture pattern is shared, but runtime behavior is tailored to each domain.
 -->
 
 ---
