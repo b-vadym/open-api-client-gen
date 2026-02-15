@@ -310,10 +310,10 @@ And as a bonus — you can generate MSW mocks for testing.
 
 ---
 layout: two-cols
-layoutClass: gap-8
+layoutClass: gap-6
 ---
 
-# ⚙️ orval.config.ts — the whole setup
+# ⚙️ orval.config.ts
 
 ```typescript {all|3-7|8-15|16-20|all}
 import { defineConfig } from 'orval';
@@ -344,31 +344,27 @@ export default defineConfig({
 
 ::right::
 
-<div class="mt-14 space-y-3 text-sm">
+<div class="mt-12 space-y-2.5 text-sm">
 
-<v-clicks>
-
-<div class="p-2 bg-blue-500/10 border-l-3 border-blue-500 rounded">
-  <strong>📄 input.target</strong><br>
-  <span class="text-xs">Path to your OpenAPI spec (JSON or YAML). We copy it from the backend repo into <code>var/</code>.</span>
+<div v-click="1" class="p-1.5 bg-blue-500/10 border-l-3 border-blue-500 rounded">
+  <strong>📄 input.target</strong> — path to OpenAPI spec (JSON/YAML). Copied from backend repo into <code>var/</code>.
 </div>
 
-<div class="p-2 bg-purple-500/10 border-l-3 border-purple-500 rounded">
-  <strong>📂 output.mode: 'tags-split'</strong><br>
-  <span class="text-xs">Each Swagger tag → separate file. Result: <code>auth/auth.ts</code>, <code>bookings/bookings.ts</code>, etc.</span>
+<div v-click="2" class="p-1.5 bg-purple-500/10 border-l-3 border-purple-500 rounded">
+  <strong>📂 tags-split</strong> — each Swagger tag → separate file. Result: <code>auth/auth.ts</code>, <code>bookings/bookings.ts</code>, etc.
 </div>
 
-<div class="p-2 bg-green-500/10 border-l-3 border-green-500 rounded">
-  <strong>🌐 output.client: 'fetch'</strong><br>
-  <span class="text-xs">Use native <code>fetch</code>. Other options: <code>axios</code>, <code>react-query</code>, <code>vue-query</code>, <code>angular</code>.</span>
+<div v-click="2" class="p-1.5 bg-green-500/10 border-l-3 border-green-500 rounded">
+  <strong>🌐 client: 'fetch'</strong> — native fetch. Other options: <code>axios</code>, <code>react-query</code>, <code>vue-query</code>.
 </div>
 
-<div class="p-2 bg-orange-500/10 border-l-3 border-orange-500 rounded">
-  <strong>🧩 override.mutator</strong><br>
-  <span class="text-xs">Your custom HTTP wrapper. Orval calls <code>customFetch()</code> for every request — you control auth, headers, error handling.</span>
+<div v-click="3" class="p-1.5 bg-orange-500/10 border-l-3 border-orange-500 rounded">
+  <strong>🧩 override.mutator</strong> — your custom HTTP wrapper. Orval calls <code>customFetch()</code> for every request.
 </div>
 
-</v-clicks>
+<div v-click="4" class="mt-2 p-1.5 bg-gray-500/10 rounded text-xs text-center opacity-70">
+  ☝️ The entire setup — <strong>25 lines of config</strong>, and Orval does the rest
+</div>
 
 </div>
 
@@ -383,23 +379,18 @@ That's the entire setup — 25 lines of config, and Orval does the rest.
 -->
 
 ---
-layout: default
+layout: two-cols
+layoutClass: gap-6
 ---
 
-# 🔧 Custom Mutator — adapting to your HTTP client
+# 🔧 Custom Mutator
 
-<div class="grid grid-cols-2 gap-4">
-
-<div>
-
-### Native Fetch (ZipStay)
-
-```typescript {all|1-4|6-10|12-15|all}
+```typescript {all|1-3|4-6|8-12|14-19|all}
 export const customFetch = async <T>(
-  url: string,
-  options: RequestInit = {},
+  url: string, options: RequestInit = {},
 ): Promise<T> => {
-  const { VUE_API_BASEPATH } = getAppEnvironment();
+  const { VUE_API_BASEPATH }
+    = getAppEnvironment();
   const fullUrl = new URL(url, VUE_API_BASEPATH).href;
 
   const requestInit: RequestInit = {
@@ -413,54 +404,45 @@ export const customFetch = async <T>(
 
   return {
     status: response.status,
-    data,
-    headers: response.headers,
+    data, headers: response.headers,
   } as T;
 };
 ```
 
+::right::
+
+<div class="mt-11 space-y-2 text-sm">
+
+<div v-click="1" class="p-1.5 bg-blue-500/10 border-l-3 border-blue-500 rounded">
+  <strong>📋 Signature</strong> — Orval calls this for <strong>every</strong> request. Receives URL + fetch options.
 </div>
 
-<div>
-
-### Axios (Doc2Bid)
-
-```typescript {all|1-4|6-9|11-18|all}
-export const customAxiosClient = <T>(
-  url: string,
-  requestConfig: AxiosRequestConfig
-): Promise<AxiosResponse<T>> => {
-  const axiosConfig: AxiosRequestConfig = {
-    ...requestConfig,
-    url,
-  };
-
-  // Orval passes body → Axios expects data
-  if ('body' in requestConfig && requestConfig.body) {
-    const body = requestConfig.body;
-    axiosConfig.data = body instanceof FormData
-      ? body
-      : typeof body === 'string'
-        ? JSON.parse(body)
-        : body;
-    delete (axiosConfig as any).body;
-  }
-
-  return axiosInstance(axiosConfig);
-  // ☝️ axiosInstance has interceptors:
-  //    JWT refresh queue, error toasts,
-  //    FormData detection
-};
-```
-
+<div v-click="2" class="p-1.5 bg-purple-500/10 border-l-3 border-purple-500 rounded">
+  <strong>🌐 Base URL</strong> — reads <code>VUE_API_BASEPATH</code> from env. No hardcoded domains.
 </div>
+
+<div v-click="3" class="p-1.5 bg-green-500/10 border-l-3 border-green-500 rounded">
+  <strong>🍪 credentials: 'include'</strong> — HttpOnly cookies (<code>jwt_hp</code>, <code>jwt_s</code>) sent automatically.
+</div>
+
+<div v-click="4" class="p-1.5 bg-orange-500/10 border-l-3 border-orange-500 rounded">
+  <strong>🔄 Response handling</strong> — <code>APIResponseHandler</code> handles errors + auto-refreshes JWT on 401. Returns <code>{ status, data, headers }</code>.
+</div>
+
+<div v-click="5" class="mt-2 p-1.5 bg-gray-500/10 rounded text-xs text-center opacity-70">
+  ☝️ Write once — works for all <strong>547 generated files</strong>
+</div>
+
 </div>
 
 <!--
-The custom mutator is the heart of the integration. It's an adapter function between Orval and your HTTP client.
-On the left — native fetch for Vue with cookie-based auth.
-On the right — axios for React with a token refresh queue and error handling via interceptors.
-Orval knows nothing about your auth logic — it just calls the mutator.
+The custom mutator is the bridge between Orval and your HTTP client.
+Orval doesn't know anything about your auth, base URL, or error handling.
+It just calls customFetch for every request, passing url and options.
+We build the full URL from environment config, set credentials to include
+so that HttpOnly cookies with JWT tokens are sent automatically.
+The APIResponseHandler takes care of error handling and automatic token refresh.
+This is a one-time setup — write it once, and it works for all 547 generated files.
 -->
 
 ---
