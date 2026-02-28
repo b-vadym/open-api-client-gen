@@ -1,0 +1,10 @@
+services:
+  slides:
+    build: .
+    ports:
+      - "3030:3030"
+    restart: unless-stopped
+    tty: true
+    environment:
+      # Optional: protect presenter mode with a password
+      # SLIDEV_PASSWORD: secret
