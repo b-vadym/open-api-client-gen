@@ -736,17 +736,13 @@ layoutClass: gap-6
   One flag in <code>orval.config.ts</code> → Zod schemas generated alongside types. No extra tooling.
 </div>
 
-<div class="mt-1 p-2 bg-gray-500/10 rounded text-xs text-center opacity-60">
-  Apply surgically — auth flows, payments, critical reads
-</div>
-
 </div>
 
 ::right::
 
 <div class="mt-6 space-y-3">
 
-```typescript {all|2|3|4-5|all}
+```typescript
 // ✨ Generated from the same OpenAPI spec
 export const userApiResourceSchema = z.object({
   id: z.number().int().positive(),
