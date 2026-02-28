@@ -806,7 +806,7 @@ layoutClass: gap-6
 
 <div class="mt-6 space-y-3">
 
-```typescript {all|2-6|8-9|all}
+```typescript
 // ✨ Generated MSW handler + faker data
 export const getApiUserListMock = () =>
   http.get('/api/users', () =>
