@@ -712,50 +712,66 @@ So teams begin with the same deterministic API workflow.
 
 ---
 layout: two-cols
-layoutClass: gap-8
+layoutClass: gap-6
 ---
 
-# 🔮 Future Plan: Zod
+# 🧪 Worth Experimenting: Zod
 
 <div class="mt-2 flex items-center gap-3 text-sm">
   <img src="https://zod.dev/logo/logo.png" alt="Zod logo" class="h-7 w-7 rounded" />
   <a href="https://zod.dev" target="_blank" class="text-blue-400 hover:text-blue-300">zod.dev</a>
   <span class="opacity-50">•</span>
-  <a href="https://github.com/colinhacks/zod" target="_blank" class="text-blue-400 hover:text-blue-300">GitHub</a>
+  <span class="opacity-60">built into Orval</span>
 </div>
 
-<div class="mt-6 space-y-3 text-sm">
+<div class="mt-5 space-y-3 text-sm">
 
-<div class="p-3 bg-blue-500/10 border border-blue-500/30 rounded-lg">
-  <strong>Why it matters</strong><br>
-  TypeScript checks compile-time, Zod adds runtime guarantees.
+<div class="p-3 bg-amber-500/10 border border-amber-500/30 rounded-lg">
+  <strong>The gap TypeScript doesn't fill</strong><br>
+  TS errors disappear at runtime. If the backend breaks the contract silently — no compile error, just a broken UI.
 </div>
 
-<div class="p-3 bg-purple-500/10 border border-purple-500/30 rounded-lg">
-  <strong>What we use from Orval</strong><br>
-  Generate schemas and validate critical payloads at runtime.
+<div class="p-3 bg-green-500/10 border border-green-500/30 rounded-lg">
+  <strong>Orval already supports it</strong><br>
+  One flag in <code>orval.config.ts</code> → Zod schemas generated alongside types. No extra tooling.
+</div>
+
+<div class="mt-1 p-2 bg-gray-500/10 rounded text-xs text-center opacity-60">
+  Apply surgically — auth flows, payments, critical reads
 </div>
 
 </div>
 
 ::right::
 
-<div class="mt-12">
+<div class="mt-6 space-y-3">
 
-```bash
-# direction for critical endpoints
-# schema.parse(response)
+```typescript {all|2|3|4-5|all}
+// ✨ Generated from the same OpenAPI spec
+export const userApiResourceSchema = z.object({
+  id: z.number().int().positive(),
+  email: z.string().email(),
+  firstName: z.string().min(1).max(50),
+  lastName: z.string().min(1).max(50),
+  avatar: fileApiResourceSchema.nullable().optional(),
+})
 ```
 
-<div class="mt-4 text-xs opacity-70">
-Goal: detect contract drift before it reaches users.
-</div>
+```typescript
+// Runtime catch — if backend silently breaks contract
+const raw = await getApiCurrentUser()
+const user = userApiResourceSchema.parse(raw.data)
+//                                  ^ throws before UI breaks
+```
 
 </div>
 
 <!--
-Future direction #2: runtime validation for the most sensitive endpoints.
-Start focused, then scale.
+We're not shipping this tomorrow — but it's worth exploring.
+TypeScript gives us compile-time safety, but at runtime there's no contract enforcement.
+Orval already has built-in Zod support — one flag in the config, and schemas are generated alongside types from the same OpenAPI spec.
+The idea: apply it surgically to critical endpoints like auth or payments.
+If the backend silently breaks the contract, Zod throws immediately — before the broken data reaches the UI or the user.
 -->
 
 ---
