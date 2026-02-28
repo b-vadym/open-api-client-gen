@@ -772,51 +772,69 @@ If the backend silently breaks the contract, Zod throws immediately — before t
 
 ---
 layout: two-cols
-layoutClass: gap-8
+layoutClass: gap-6
 ---
 
-# 🔮 Future Plan: MSW
+# 🧪 Worth Experimenting: MSW
 
 <div class="mt-2 flex items-center gap-3 text-sm">
   <img src="https://mswjs.io/_astro/msw.ChZQPzKa.svg" alt="MSW logo" class="h-7 w-7" />
   <a href="https://mswjs.io/docs" target="_blank" class="text-blue-400 hover:text-blue-300">mswjs.io/docs</a>
   <span class="opacity-50">•</span>
-  <a href="https://github.com/mswjs/msw" target="_blank" class="text-blue-400 hover:text-blue-300">GitHub</a>
+  <span class="opacity-60">built into Orval</span>
 </div>
 
-<div class="mt-6 space-y-3 text-sm">
+<div class="mt-5 space-y-3 text-sm">
 
-<div class="p-3 bg-blue-500/10 border border-blue-500/30 rounded-lg">
-  <strong>Why it matters</strong><br>
-  Stable frontend development even when backend is unavailable.
+<div class="p-3 bg-amber-500/10 border border-amber-500/30 rounded-lg">
+  <strong>The problem it solves</strong><br>
+  Backend not ready? Endpoint broken? Hand-written mocks drift from the real API over time.
 </div>
 
-<div class="p-3 bg-purple-500/10 border border-purple-500/30 rounded-lg">
-  <strong>What we use from Orval</strong><br>
-  Generate MSW handlers directly from the same OpenAPI contract.
+<div class="p-3 bg-green-500/10 border border-green-500/30 rounded-lg">
+  <strong>Orval already supports it</strong><br>
+  One flag → MSW handlers generated from the same OpenAPI spec. Mocks can't drift — they're generated.
+</div>
+
+<div class="mt-1 p-2 bg-gray-500/10 rounded text-xs text-center opacity-60">
+  Works in browser (Service Worker) and Node.js (for tests)
 </div>
 
 </div>
 
 ::right::
 
-<div class="mt-12">
+<div class="mt-6 space-y-3">
 
-```bash
-# future experiment
-orval --config ./orval.config.ts
-# enable mock output for selected APIs
+```typescript {all|2-6|8-9|all}
+// ✨ Generated MSW handler + faker data
+export const getApiUserListMock = () =>
+  http.get('/api/users', () =>
+    HttpResponse.json([{
+      id: faker.number.int(),
+      email: faker.internet.email(),
+      firstName: faker.person.firstName(),
+      lastName: faker.person.lastName(),
+      avatar: null,
+    }])
+  )
 ```
 
-<div class="mt-4 text-xs opacity-70">
-Goal: faster UI iteration with predictable API behavior.
-</div>
+```typescript
+// Same setup — dev and tests
+const server = setupServer(...getApiUserListMock())
+```
 
 </div>
 
 <!--
-Future direction #3: use Orval MSW output for stable frontend workflows.
-Keep scope small and practical.
+Again — not a roadmap item, but something genuinely worth trying.
+The classic problem: backend isn't ready, or an endpoint is broken, so frontend work stalls.
+Hand-written mocks are the usual solution — but they drift from the real API over time, silently.
+MSW intercepts real network requests at the Service Worker level — no function stubs, actual HTTP.
+And Orval can generate MSW handlers straight from the same OpenAPI spec.
+That means your mocks are always structurally correct — faker fills in realistic data, and the shape matches the contract.
+Same handler works in the browser during development and in Node.js for integration tests.
 -->
 
 ---
